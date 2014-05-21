@@ -96,7 +96,11 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script>
 		function MadnessPass($scope){
-			$scope.cards = $.parseJSON(localStorage.getItem("MadnessVault"));
+			if(localStorage.getItem("MadnessVault")){
+				$scope.cards = $.parseJSON(localStorage.getItem("MadnessVault"));
+			}else{
+				$scope.cards = [];
+			}
 
 			$scope.title    = "";
 			$scope.link     = "";
