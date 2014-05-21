@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Madness Pass - We <3 Web </title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+	<style>
+	nav{
+		position: relative;
+		border-radius: 0 !important;
+	}
+	.plus{
+		position: absolute;
+		right:10px;
+		top:5px;
+		font-weight: bold;
+	}
+	.card{
+		background-color: #f8f8f8;
+		border:1px solid #e7e7e7;
+		display:block;
+		margin-bottom:20px;
+		position:relative;
+		color:#444;
+		padding:0 20px;
+		position:relative;
+	}
+	.card .title{
+		font-size: 32px;
+		font-weight: bold;
+	}
+	.card a:hover{
+		text-decoration: none;
+	}
+	.card .pass{
+		display:none;
+	}
+	.card .remove{
+		position: absolute;
+		top:10px;
+		right:10px;
+		font-size:24px;
+		font-weight: bold;
+	}
+	.card .remove:hover{
+		cursor: pointer;
+	}
+
+	form{
+		display:none;
+		background:#666;
+		padding:15px;
+		margin-top:-20px;
+	}
+	form input{
+		margin-bottom:10px;
+	}
+	</style>
+
+</head>
+<body ng-controller="MadnessPass">
+
+	<nav class="navbar navbar-default" role="navigation">
+	    <div class="container-fluid">
+	        <div class="navbar-header">
+	            <a class="navbar-brand" href="#">Madness<b>Pass</b></a>
+	        </div>
+            <a href="#" class="btn btn-primary plus" ng-click="toggleForm()">+</a>
+	    </div>
+	</nav>
+
+	<form role="form">
+		<div class="container-fluid">
+			<input class="form-control" name="title" ng-model="title" placeholder="Title" />
+			<input class="form-control" name="link" ng-model="link" placeholder="Link" />
+			<input class="form-control" name="username" ng-model="username" placeholder="Username" />
+			<input class="form-control" name="password" ng-model="password" placeholder="password" />
+			<button class="btn btn-success btn-block" ng-click="add()">Save</button>
+		</div>
+	</form>
+
+	<div class="container-fluid">
+		<div class="card" ng-repeat="card in cards track by $index">
+			<a href="{{card.link}}" ng-click="open($event)" class="title">{{card.title}}</a>
+			<h4>{{card.username}}</h4>
+			<h3>{{card.password}}</h3>
+			<a class="remove" ng-click="remove($event, $index)">X</a>
+		</div>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://code.angularjs.org/1.2.16/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.2.16/angular-route.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script>
+		function MadnessPass($scope){
+			$scope.cards = $.parseJSON(localStorage.getItem("MadnessVault"));
+
+			$scope.title    = "";
+			$scope.link     = "";
+			$scope.username = "";
+			$scope.password = "";
+
+			$scope.toggleForm = function(el){
+				$("form").slideToggle("fast", function(){
+					if($('.plus').text() == '+'){
+						$('.plus').text("-");
+					}else{
+						$('.plus').text("+");
+					}	
+				});
+			};
+
+			$scope.add = function(){
+				$scope.cards.push({"title":$scope.title, "link":$scope.link, "username":$scope.username, "password":$scope.password});
+
+				$scope.title    = "";
+				$scope.link     = "";
+				$scope.username = "";
+				$scope.password = "";
+
+				$scope.save();
+
+				$scope.toggleForm();
+			};
+
+			$scope.open = function(event){
+				event.preventDefault();
+
+				var win = window.open(event.target.href);
+		    	win.focus();
+			};
+
+			$scope.save = function(){
+				localStorage.setItem("MadnessVault",JSON.stringify($scope.cards));
+			}
+
+			$scope.remove = function(event, index){
+				var del = confirm("Are you sure? This cannot be recovered!");
+				if(del){
+					$scope.cards.splice(index, 1 );
+					$scope.save();
+				}
+			};
+		}
+	</script>
+</body>
+</html>
