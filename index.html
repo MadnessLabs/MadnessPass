@@ -13,9 +13,22 @@
 	<nav class="navbar navbar-default" role="navigation">
 	    <div class="container-fluid">
 	        <div class="navbar-header">
-	            <a class="navbar-brand" href="#">Madness<b>Pass</b><small>Beta</small></a>
+	            <a class="navbar-brand" href="#">
+	            	<i class="fa fa-unlock"></i>
+	            	Madness<b>Pass</b><small>Beta</small>
+	            </a>
 	        </div>
-            <a href="#" class="btn btn-primary plus" ng-click="toggleForm()">+</a>
+			<div class="navbar-form" role="search">
+		        <div class="input-group">
+		            <input type="search" class="form-control" placeholder="Search" ng-model="searchText" />
+		            <div class="input-group-btn">
+		                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+		            </div>
+		        </div>
+			</div>
+            <a href="#" class="btn btn-primary plus" ng-click="toggleForm()">
+            	<i class="fa fa-plus-circle"></i>
+            </a>
 	    </div>
 	</nav>
 
@@ -25,16 +38,19 @@
 			<input class="form-control" name="link" ng-model="link" placeholder="Link" />
 			<input class="form-control" name="username" ng-model="username" placeholder="Username" />
 			<input class="form-control" name="password" ng-model="password" placeholder="password" />
-			<button class="btn btn-success btn-block" ng-click="add()">Save</button>
+			<button class="btn btn-success btn-block" ng-click="add()">
+				<b>Save</b>
+				<i class="fa fa-check"></i>
+			</button>
 		</div>
 	</form>
 
 	<div class="container-fluid">
-		<div class="card" ng-repeat="card in cards track by $index">
+		<div class="card" ng-repeat="card in cards | filter:searchText">
 			<a href="{{card.link}}" ng-click="open($event)" class="title">{{card.title}}</a>
 			<h4>{{card.username}}</h4>
-			<h3>{{card.password}}</h3>
-			<a class="remove" ng-click="remove($event, $index)">X</a>
+			<h3 id="pass">{{card.password}}</h3>
+			<i class="fa fa-times-circle remove" ng-click="remove($event, $index)"></i>
 		</div>
 	</div>
 

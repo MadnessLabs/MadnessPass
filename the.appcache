@@ -8,6 +8,10 @@ index.html
 css/master.css
 
 # FONT
+fonts/fontawesome-webfont.svg
+fonts/fontawesome-webfont.ttf
+fonts/glyphicons-halflings-regular.svg
+fonts/glyphicons-halflings-regular.ttf
 
 # JS
 js/MadnessPass.js

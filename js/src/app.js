@@ -14,10 +14,10 @@ function MadnessPass($scope){
 
 	$scope.toggleForm = function(el){
 		$("form").slideToggle("fast", function(){
-			if($('.plus').text() == '+'){
-				$('.plus').text("-");
+			if($('.plus i').hasClass("fa-plus-circle")){
+				$('.plus i').removeClass("fa-plus-circle").addClass("fa-minus-circle");
 			}else{
-				$('.plus').text("+");
+				$('.plus i').removeClass("fa-minus-circle").addClass("fa-plus-circle");
 			}	
 		});
 	};
