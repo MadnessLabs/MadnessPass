@@ -1,3 +1,9 @@
+$(window).on("resize", function(){
+	if($(document).width() >= 775 && $(".search").is(":hidden")){
+		$(".search").slideDown();
+	}
+});
+
 function MadnessPass($scope){
 	if(localStorage.getItem("MadnessVault")){
 		$scope.cards = $.parseJSON(localStorage.getItem("MadnessVault"));
@@ -20,6 +26,10 @@ function MadnessPass($scope){
 				$('.plus i').removeClass("fa-minus-circle").addClass("fa-plus-circle");
 			}	
 		});
+	};
+
+	$scope.toggleSearch = function(){
+		$(".search").slideToggle();
 	};
 
 	$scope.add = function(){
@@ -53,4 +63,17 @@ function MadnessPass($scope){
 			$scope.save();
 		}
 	};
+
+	$scope.toggle = function(event){
+		var $this = $(event.target),
+			$pass = $this.parents(".card").find("h3");
+
+		$pass.slideToggle();
+
+		if($this.hasClass("fa-chevron-circle-down")){
+			$this.removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
+		}else{
+			$this.removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
+		}
+	}
 }

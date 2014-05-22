@@ -223,7 +223,13 @@ d,m),(r.current=d)&&d.redirectTo&&(e.isString(d.redirectTo)?c.path(t(d.redirectT
 b,c=n.get(b,{cache:v}).then(function(a){return a.data})));e.isDefined(c)&&(a.$template=c);return f.all(a)}}).then(function(c){d==r.current&&(d&&(d.locals=c,e.copy(d.params,b)),a.$broadcast("$routeChangeSuccess",d,m))},function(c){d==r.current&&a.$broadcast("$routeChangeError",d,m,c)})}function p(){var a,b;e.forEach(k,function(f,k){var q;if(q=!b){var g=c.path();q=f.keys;var l={};if(f.regexp)if(g=f.regexp.exec(g)){for(var h=1,p=g.length;h<p;++h){var n=q[h-1],r="string"==typeof g[h]?decodeURIComponent(g[h]):
 g[h];n&&r&&(l[n.name]=r)}q=l}else q=null;else q=null;q=a=q}q&&(b=s(f,{params:e.extend({},c.search(),a),pathParams:a}),b.$$route=f)});return b||k[null]&&s(k[null],{params:{},pathParams:{}})}function t(a,c){var b=[];e.forEach((a||"").split(":"),function(a,d){if(0===d)b.push(a);else{var e=a.match(/(\w+)(.*)/),f=e[1];b.push(c[f]);b.push(e[2]||"");delete c[f]}});return b.join("")}var u=!1,r={routes:k,reload:function(){u=!0;a.$evalAsync(l)}};a.$on("$locationChangeSuccess",l);return r}]});n.provider("$routeParams",
 function(){this.$get=function(){return{}}});n.directive("ngView",x);n.directive("ngView",z);x.$inject=["$route","$anchorScroll","$animate"];z.$inject=["$compile","$controller","$route"]})(window,window.angular);
-;function MadnessPass($scope){
+;$(window).on("resize", function(){
+	if($(document).width() >= 775 && $(".search").is(":hidden")){
+		$(".search").slideDown();
+	}
+});
+
+function MadnessPass($scope){
 	if(localStorage.getItem("MadnessVault")){
 		$scope.cards = $.parseJSON(localStorage.getItem("MadnessVault"));
 	}else{
@@ -245,6 +251,10 @@ function(){this.$get=function(){return{}}});n.directive("ngView",x);n.directive(
 				$('.plus i').removeClass("fa-minus-circle").addClass("fa-plus-circle");
 			}	
 		});
+	};
+
+	$scope.toggleSearch = function(){
+		$(".search").slideToggle();
 	};
 
 	$scope.add = function(){
@@ -278,4 +288,17 @@ function(){this.$get=function(){return{}}});n.directive("ngView",x);n.directive(
 			$scope.save();
 		}
 	};
+
+	$scope.toggle = function(event){
+		var $this = $(event.target),
+			$pass = $this.parents(".card").find("h3");
+
+		$pass.slideToggle();
+
+		if($this.hasClass("fa-chevron-circle-down")){
+			$this.removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
+		}else{
+			$this.removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
+		}
+	}
 }

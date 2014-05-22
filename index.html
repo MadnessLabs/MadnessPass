@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app manifest="the.appcache">
+<html ng-app>
 <head>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -18,14 +18,12 @@
 	            	Madness<b>Pass</b><small>Beta</small>
 	            </a>
 	        </div>
-			<div class="navbar-form" role="search">
-		        <div class="input-group">
-		            <input type="search" class="form-control" placeholder="Search" ng-model="searchText" />
-		            <div class="input-group-btn">
-		                <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-		            </div>
-		        </div>
+	        <div class="search">
+		    	<input type="search" class="form-control" placeholder="Search" ng-model="searchText" />
 			</div>
+			<a href="#" class="btn btn-default search-btn" ng-click="toggleSearch()">
+            	<i class="fa fa-search"></i>
+            </a>
             <a href="#" class="btn btn-primary plus" ng-click="toggleForm()">
             	<i class="fa fa-plus-circle"></i>
             </a>
@@ -50,7 +48,9 @@
 			<a href="{{card.link}}" ng-click="open($event)" class="title">{{card.title}}</a>
 			<h4>{{card.username}}</h4>
 			<h3 id="pass">{{card.password}}</h3>
+
 			<i class="fa fa-times-circle remove" ng-click="remove($event, $index)"></i>
+			<i class="fa fa-chevron-circle-down toggle" ng-click="toggle($event)"></i>
 		</div>
 	</div>
 

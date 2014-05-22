@@ -2,7 +2,6 @@
 @import "lib/bootstrap/bootstrap";
 @import "lib/font-awesome/font-awesome";
 
-// THESE NEED TO BE BROKEN UP AND IMPORTED
 body{
 	display:none;
 }
@@ -20,11 +19,27 @@ nav{
 			right:0;
 		}
 	}
-	.navbar-form{
-		width:75%;
+	.search{
+		// DESKTOP
+		width:40%;
 		display:block;
-		margin-left:auto;
-		margin-right:auto;
+		margin:5px auto;
+		@media (max-width: 775px) {
+			//MOBILE
+			width:100%;
+			margin:0 auto 5px auto;
+			display:none;
+		}
+	}
+	.search-btn{
+		position: absolute;
+		right:60px;
+		top:5px;
+		font-weight: bold;
+		display:none;
+		@media (max-width: 775px) {
+			display:block;
+		}
 	}
 }
 .plus{
@@ -42,6 +57,24 @@ nav{
 	color:#444;
 	padding:0 20px;
 	position:relative;
+
+	h3{
+		display:none;
+	}
+	.toggle{
+		color:#ccc;
+		position: absolute;
+		bottom:10px;
+		right:10px;
+		font-size:24px;
+		font-weight: bold;
+	
+		&:hover{
+			cursor: pointer;
+			color:#428bca;
+		}
+
+	}
 }
 .card .title{
 	font-size: 32px;
