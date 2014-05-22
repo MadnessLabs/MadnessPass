@@ -1,0 +1,25 @@
+{
+	"folders":
+	[	
+		{
+			"follow_symlinks": true,
+			"path": "C:/xampp/htdocs/MadnessPass/"
+		}
+	],
+	"settings":
+    {
+        "less2css":
+        {
+            "autoCompile": true,
+			"main_file":"C:/xampp/htdocs/MadnessPass/css/less/master.less",
+    		"outputDir": "C:/xampp/htdocs/MadnessPass/css"
+        }
+    },
+	"build_systems":
+    [
+        {
+            "name": "Grunt",
+            "shell_cmd": "grunt"
+        }
+    ]
+}
