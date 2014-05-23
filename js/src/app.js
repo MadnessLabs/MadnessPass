@@ -19,7 +19,7 @@ function MadnessPass($scope){
 	$scope.password = "";
 
 	$scope.toggleForm = function(el){
-		$("form").slideToggle("fast", function(){
+		$(".new-card").slideToggle("fast", function(){
 			if($('.plus i').hasClass("fa-plus-circle")){
 				$('.plus i').removeClass("fa-plus-circle").addClass("fa-minus-circle");
 			}else{
@@ -33,23 +33,38 @@ function MadnessPass($scope){
 	};
 
 	$scope.add = function(){
-		$scope.cards.push({"title":$scope.title, "link":$scope.link, "username":$scope.username, "password":$scope.password});
+		if($scope.title.length > 0 && $scope.password.length > 0){
 
-		$scope.title    = "";
-		$scope.link     = "";
-		$scope.username = "";
-		$scope.password = "";
+			if($scope.link.length == 0){
+				$scope.link = "#";
+			}
 
-		$scope.save();
+			$scope.cards.push({"title":$scope.title, "link":$scope.link, "username":$scope.username, "password":$scope.password});
 
-		$scope.toggleForm();
+			$scope.title    = "";
+			$scope.link     = "";
+			$scope.username = "";
+			$scope.password = "";
+
+			$scope.save();
+
+			$scope.toggleForm();
+			$(".new-card input[required]").removeClass("bg-warning");
+		}else{
+			alert("Please fill out Yellow Fields");
+			$(".new-card input[required]").addClass("bg-warning");
+		}
 	};
 
 	$scope.open = function(event){
 		event.preventDefault();
 
-		var win = window.open(event.target.href);
-    	win.focus();
+		console.log(event.target.href);
+
+		if(event.target.href != document.URL){
+			var win = window.open(event.target.href);
+    		win.focus();
+    	}
 	};
 
 	$scope.save = function(){

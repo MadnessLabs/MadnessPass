@@ -7341,13 +7341,23 @@ button.close {
   content: "\f1e2";
 }
 body {
+  padding-top: 52px;
   display: none;
 }
 nav {
-  position: relative;
+  z-index: 999;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #444 !important;
   border-radius: 0 !important;
 }
+nav .fa-key {
+  color: gold;
+}
 nav .navbar-brand {
+  color: #FFF !important;
   position: relative;
 }
 nav .navbar-brand small {
@@ -7361,7 +7371,7 @@ nav .navbar-brand small {
 nav .search {
   width: 40%;
   display: block;
-  margin: 7px auto 5px auto;
+  margin: 5px auto;
 }
 @media (max-width: 775px) {
   nav .search {
@@ -7392,7 +7402,7 @@ nav .search-btn {
   background-color: #f8f8f8;
   border: 1px solid #e7e7e7;
   display: block;
-  margin-bottom: 20px;
+  margin-top: 20px;
   color: #444;
   padding: 0 20px;
   position: relative;
@@ -7432,12 +7442,16 @@ nav .search-btn {
 .card .remove:hover {
   cursor: pointer;
 }
-form {
+.new-card {
   display: none;
   background: #666;
   padding: 15px;
-  margin-top: -20px;
+  border-bottom: 1px solid #000;
 }
-form input {
+.new-card .bg-warning {
+  background-color: #FCF8E3 !important;
+  border-color: gold;
+}
+.new-card input {
   margin-bottom: 10px;
 }

@@ -10,11 +10,11 @@
 </head>
 <body ng-controller="MadnessPass">
 
-	<nav class="navbar navbar-default" role="navigation">
+	<nav class="navbar navbar-inverse" role="navigation">
 	    <div class="container-fluid">
 	        <div class="navbar-header">
 	            <a class="navbar-brand" href="#">
-	            	<i class="fa fa-key"></i>
+					<i class="fa fa-key fa-flip-horizontal"></i>
 	            	Madness<b>Pass</b><small>Beta</small>
 	            </a>
 	        </div>
@@ -22,7 +22,7 @@
 		    	<input type="search" class="form-control" placeholder="Search" ng-model="searchText" />
 			</div>
 			<a href="#" class="btn btn-default search-btn" ng-click="toggleSearch()">
-            	<i class="fa fa-search"></i>
+            	<i class="fa fa-search fa-flip-hor"></i>
             </a>
             <a href="#" class="btn btn-primary plus" ng-click="toggleForm()">
             	<i class="fa fa-plus-circle"></i>
@@ -30,12 +30,12 @@
 	    </div>
 	</nav>
 
-	<form role="form">
+	<form class="new-card">
 		<div class="container-fluid">
-			<input class="form-control" name="title" ng-model="title" placeholder="Title" />
+			<input class="form-control" name="title" ng-model="title" placeholder="Title" required />
 			<input class="form-control" name="link" ng-model="link" placeholder="Link" />
-			<input class="form-control" name="username" ng-model="username" placeholder="Username" />
-			<input class="form-control" name="password" ng-model="password" placeholder="password" />
+			<input class="form-control" name="username" ng-model="username" placeholder="Username" required />
+			<input class="form-control" name="password" ng-model="password" placeholder="password" required />
 			<button class="btn btn-success btn-block" ng-click="add()">
 				<b>Save</b>
 				<i class="fa fa-check"></i>
@@ -44,8 +44,8 @@
 	</form>
 
 	<div class="container-fluid">
-		<div class="card" ng-repeat="card in cards | filter:searchText">
-			<a href="{{card.link}}" ng-click="open($event)" class="title">{{card.title}}</a>
+		<div class="card" ng-repeat="card in cards | filter:searchText track by $index">
+			<a href="{{card.link}}" ng-click="open($event)" class="title" title="{{card.link}}">{{card.title}}</a>
 			<h4>{{card.username}}</h4>
 			<h3 id="pass">{{card.password}}</h3>
 
