@@ -1,6 +1,14 @@
+$(document).on("ready", function(){
+	$(".search input").focus().focus();
+});
+
 $(window).on("resize", function(){
 	if($(document).width() >= 775 && $(".search").is(":hidden")){
 		$(".search").slideDown();
+	}
+
+	if($(document).width() < 775 && $(".search").is(":visible") && $(".new-card").is(":visible")){
+		$(".search").hide();
 	}
 });
 
@@ -18,18 +26,62 @@ function MadnessPass($scope){
 	$scope.username = "";
 	$scope.password = "";
 
-	$scope.toggleForm = function(el){
+	$scope.toggleIcon = function(){
+		if($('.plus i').hasClass("fa-plus-circle")){
+			$('.plus i').removeClass("fa-plus-circle").addClass("fa-minus-circle");
+		}else{
+			$('.plus i').removeClass("fa-minus-circle").addClass("fa-plus-circle");
+		}
+	};
+
+	$scope.toggleNew = function(){
+		$scope.checkSearch();
 		$(".new-card").slideToggle("fast", function(){
-			if($('.plus i').hasClass("fa-plus-circle")){
-				$('.plus i').removeClass("fa-plus-circle").addClass("fa-minus-circle");
+			$scope.toggleIcon();
+			$(".new-title").focus().focus();	
+		});
+	};
+
+	$scope.toggleForm = function(el){
+
+		if($(".search").is(":visible") && $(document).width() <= 775){
+			$(".search").slideUp("fast", function(){
+				$scope.toggleNew();
+			});
+		}else{
+			$scope.toggleNew();
+		}
+	};
+
+	$scope.checkSearch = function(){
+		if($(document).width() <= 775){
+			if($(".search").is(":hidden")){
+				$("body").css("padding-top","52px");
 			}else{
-				$('.plus i').removeClass("fa-minus-circle").addClass("fa-plus-circle");
-			}	
+				$("body").css("padding-top","85px");
+			}
+		}else{
+			$("body").css("padding-top","52px");
+		}
+	};
+
+	$scope.animateSearch = function(){
+		$(".search").slideToggle("fast", function(){
+			$(".search input").focus().focus();
+			$scope.checkSearch();
 		});
 	};
 
 	$scope.toggleSearch = function(){
-		$(".search").slideToggle();
+
+		if($(".new-card").is(":visible")){
+			$(".new-card").slideUp("fast", function(){
+				$scope.toggleIcon();
+				$scope.animateSearch();
+			});
+		}else{
+			$scope.animateSearch();
+		}
 	};
 
 	$scope.add = function(){

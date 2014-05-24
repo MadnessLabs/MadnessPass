@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app manifest="the.appcache">
+<html ng-app>
 <head>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -32,7 +32,7 @@
 
 	<form class="new-card">
 		<div class="container-fluid">
-			<input class="form-control" name="title" ng-model="title" placeholder="Title" required />
+			<input class="form-control new-title" name="title" ng-model="title" placeholder="Title" required />
 			<input class="form-control" name="link" ng-model="link" placeholder="Link" />
 			<input class="form-control" name="username" ng-model="username" placeholder="Username" required />
 			<input class="form-control" name="password" ng-model="password" placeholder="password" required />
@@ -43,7 +43,7 @@
 		</div>
 	</form>
 
-	<div class="container-fluid">
+	<div class="container-fluid content-area">
 		<div class="card" ng-repeat="card in cards | filter:searchText track by $index">
 			<a href="{{card.link}}" ng-click="open($event)" class="title" title="{{card.link}}">{{card.title}}</a>
 			<h4>{{card.username}}</h4>
@@ -53,6 +53,11 @@
 			<i class="fa fa-chevron-circle-down toggle" ng-click="toggle($event)"></i>
 		</div>
 	</div>
+
+	<footer>
+		<p>Madness Labs 2014&copy;</p>
+		<img src="img/madnesslabs-logo.png" />
+	</footer>
 
 	<script src="js/MadnessPass.js"></script>
 </body>

@@ -223,9 +223,17 @@ d,m),(r.current=d)&&d.redirectTo&&(e.isString(d.redirectTo)?c.path(t(d.redirectT
 b,c=n.get(b,{cache:v}).then(function(a){return a.data})));e.isDefined(c)&&(a.$template=c);return f.all(a)}}).then(function(c){d==r.current&&(d&&(d.locals=c,e.copy(d.params,b)),a.$broadcast("$routeChangeSuccess",d,m))},function(c){d==r.current&&a.$broadcast("$routeChangeError",d,m,c)})}function p(){var a,b;e.forEach(k,function(f,k){var q;if(q=!b){var g=c.path();q=f.keys;var l={};if(f.regexp)if(g=f.regexp.exec(g)){for(var h=1,p=g.length;h<p;++h){var n=q[h-1],r="string"==typeof g[h]?decodeURIComponent(g[h]):
 g[h];n&&r&&(l[n.name]=r)}q=l}else q=null;else q=null;q=a=q}q&&(b=s(f,{params:e.extend({},c.search(),a),pathParams:a}),b.$$route=f)});return b||k[null]&&s(k[null],{params:{},pathParams:{}})}function t(a,c){var b=[];e.forEach((a||"").split(":"),function(a,d){if(0===d)b.push(a);else{var e=a.match(/(\w+)(.*)/),f=e[1];b.push(c[f]);b.push(e[2]||"");delete c[f]}});return b.join("")}var u=!1,r={routes:k,reload:function(){u=!0;a.$evalAsync(l)}};a.$on("$locationChangeSuccess",l);return r}]});n.provider("$routeParams",
 function(){this.$get=function(){return{}}});n.directive("ngView",x);n.directive("ngView",z);x.$inject=["$route","$anchorScroll","$animate"];z.$inject=["$compile","$controller","$route"]})(window,window.angular);
-;$(window).on("resize", function(){
+;$(document).on("ready", function(){
+	$(".search input").focus().focus();
+});
+
+$(window).on("resize", function(){
 	if($(document).width() >= 775 && $(".search").is(":hidden")){
 		$(".search").slideDown();
+	}
+
+	if($(document).width() < 775 && $(".search").is(":visible") && $(".new-card").is(":visible")){
+		$(".search").hide();
 	}
 });
 
@@ -243,18 +251,62 @@ function MadnessPass($scope){
 	$scope.username = "";
 	$scope.password = "";
 
-	$scope.toggleForm = function(el){
+	$scope.toggleIcon = function(){
+		if($('.plus i').hasClass("fa-plus-circle")){
+			$('.plus i').removeClass("fa-plus-circle").addClass("fa-minus-circle");
+		}else{
+			$('.plus i').removeClass("fa-minus-circle").addClass("fa-plus-circle");
+		}
+	};
+
+	$scope.toggleNew = function(){
+		$scope.checkSearch();
 		$(".new-card").slideToggle("fast", function(){
-			if($('.plus i').hasClass("fa-plus-circle")){
-				$('.plus i').removeClass("fa-plus-circle").addClass("fa-minus-circle");
+			$scope.toggleIcon();
+			$(".new-title").focus().focus();	
+		});
+	};
+
+	$scope.toggleForm = function(el){
+
+		if($(".search").is(":visible") && $(document).width() <= 775){
+			$(".search").slideUp("fast", function(){
+				$scope.toggleNew();
+			});
+		}else{
+			$scope.toggleNew();
+		}
+	};
+
+	$scope.checkSearch = function(){
+		if($(document).width() <= 775){
+			if($(".search").is(":hidden")){
+				$("body").css("padding-top","52px");
 			}else{
-				$('.plus i').removeClass("fa-minus-circle").addClass("fa-plus-circle");
-			}	
+				$("body").css("padding-top","85px");
+			}
+		}else{
+			$("body").css("padding-top","52px");
+		}
+	};
+
+	$scope.animateSearch = function(){
+		$(".search").slideToggle("fast", function(){
+			$(".search input").focus().focus();
+			$scope.checkSearch();
 		});
 	};
 
 	$scope.toggleSearch = function(){
-		$(".search").slideToggle();
+
+		if($(".new-card").is(":visible")){
+			$(".new-card").slideUp("fast", function(){
+				$scope.toggleIcon();
+				$scope.animateSearch();
+			});
+		}else{
+			$scope.animateSearch();
+		}
 	};
 
 	$scope.add = function(){
