@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Madness Pass App Cache - Version: 0.2
+# Madness Pass App Cache - Version: 0.2a
 
 # HTML
 index.html
@@ -17,7 +17,7 @@ fonts/glyphicons-halflings-regular.ttf
 js/MadnessPass.js
 
 # IMG
-
+img/madnesslabs-logo.png
 
 NETWORK:
 *
