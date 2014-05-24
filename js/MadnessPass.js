@@ -224,7 +224,7 @@ b,c=n.get(b,{cache:v}).then(function(a){return a.data})));e.isDefined(c)&&(a.$te
 g[h];n&&r&&(l[n.name]=r)}q=l}else q=null;else q=null;q=a=q}q&&(b=s(f,{params:e.extend({},c.search(),a),pathParams:a}),b.$$route=f)});return b||k[null]&&s(k[null],{params:{},pathParams:{}})}function t(a,c){var b=[];e.forEach((a||"").split(":"),function(a,d){if(0===d)b.push(a);else{var e=a.match(/(\w+)(.*)/),f=e[1];b.push(c[f]);b.push(e[2]||"");delete c[f]}});return b.join("")}var u=!1,r={routes:k,reload:function(){u=!0;a.$evalAsync(l)}};a.$on("$locationChangeSuccess",l);return r}]});n.provider("$routeParams",
 function(){this.$get=function(){return{}}});n.directive("ngView",x);n.directive("ngView",z);x.$inject=["$route","$anchorScroll","$animate"];z.$inject=["$compile","$controller","$route"]})(window,window.angular);
 ;$(document).on("ready", function(){
-	$(".search input").focus().focus();
+	$(".search input").focus();
 })
 .on("click", ".ml-logo", function(event){
 	event.preventDefault();
@@ -236,6 +236,18 @@ function(){this.$get=function(){return{}}});n.directive("ngView",x);n.directive(
 $(window).on("resize", function(){
 	if($(document).width() >= 775 && $(".search").is(":hidden")){
 		$(".search").slideDown();
+	}
+
+	if($(document).width() >= 775 && $(".search").is(":visible") && $("body").css("padding-top") == "85px"){
+		$( "body" ).animate({
+		    paddingTop: "52px"
+		}, 250);
+	}
+
+	if($(document).width() < 775 && $(".search").is(":visible") && $("body").css("padding-top") == "52px"){
+		$( "body" ).animate({
+		    paddingTop: "85px"
+		}, 250);
 	}
 
 	if($(document).width() < 775 && $(".search").is(":visible") && $(".new-card").is(":visible")){
@@ -266,10 +278,11 @@ function MadnessPass($scope){
 	};
 
 	$scope.toggleNew = function(){
-		$scope.checkSearch();
-		$(".new-card").slideToggle("fast", function(){
-			$scope.toggleIcon();
-			$(".new-title").focus().focus();	
+		$scope.checkSearch(function(){
+			$(".new-card").slideToggle("fast", function(){
+				$scope.toggleIcon();
+				$(".new-title").focus().focus();	
+			});
 		});
 	};
 
@@ -284,15 +297,21 @@ function MadnessPass($scope){
 		}
 	};
 
-	$scope.checkSearch = function(){
+	$scope.checkSearch = function(fn){
 		if($(document).width() <= 775){
 			if($(".search").is(":hidden")){
-				$("body").css("padding-top","52px");
+				$( "body" ).animate({
+				    paddingTop: "52px"
+				}, 250, fn);
 			}else{
-				$("body").css("padding-top","85px");
+				$( "body" ).animate({
+				    paddingTop: "85px"
+				}, 250, fn);
 			}
 		}else{
-			$("body").css("padding-top","52px");
+			$( "body" ).animate({
+			    paddingTop: "52px"
+			}, 250, fn);
 		}
 	};
 

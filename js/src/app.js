@@ -1,5 +1,5 @@
 $(document).on("ready", function(){
-	$(".search input").focus().focus();
+	$(".search input").focus();
 })
 .on("click", ".ml-logo", function(event){
 	event.preventDefault();
@@ -11,6 +11,18 @@ $(document).on("ready", function(){
 $(window).on("resize", function(){
 	if($(document).width() >= 775 && $(".search").is(":hidden")){
 		$(".search").slideDown();
+	}
+
+	if($(document).width() >= 775 && $(".search").is(":visible") && $("body").css("padding-top") == "85px"){
+		$( "body" ).animate({
+		    paddingTop: "52px"
+		}, 250);
+	}
+
+	if($(document).width() < 775 && $(".search").is(":visible") && $("body").css("padding-top") == "52px"){
+		$( "body" ).animate({
+		    paddingTop: "85px"
+		}, 250);
 	}
 
 	if($(document).width() < 775 && $(".search").is(":visible") && $(".new-card").is(":visible")){
@@ -41,10 +53,11 @@ function MadnessPass($scope){
 	};
 
 	$scope.toggleNew = function(){
-		$scope.checkSearch();
-		$(".new-card").slideToggle("fast", function(){
-			$scope.toggleIcon();
-			$(".new-title").focus().focus();	
+		$scope.checkSearch(function(){
+			$(".new-card").slideToggle("fast", function(){
+				$scope.toggleIcon();
+				$(".new-title").focus().focus();	
+			});
 		});
 	};
 
@@ -59,15 +72,21 @@ function MadnessPass($scope){
 		}
 	};
 
-	$scope.checkSearch = function(){
+	$scope.checkSearch = function(fn){
 		if($(document).width() <= 775){
 			if($(".search").is(":hidden")){
-				$("body").css("padding-top","52px");
+				$( "body" ).animate({
+				    paddingTop: "52px"
+				}, 250, fn);
 			}else{
-				$("body").css("padding-top","85px");
+				$( "body" ).animate({
+				    paddingTop: "85px"
+				}, 250, fn);
 			}
 		}else{
-			$("body").css("padding-top","52px");
+			$( "body" ).animate({
+			    paddingTop: "52px"
+			}, 250, fn);
 		}
 	};
 
