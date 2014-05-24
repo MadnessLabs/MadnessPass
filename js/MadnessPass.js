@@ -225,7 +225,13 @@ g[h];n&&r&&(l[n.name]=r)}q=l}else q=null;else q=null;q=a=q}q&&(b=s(f,{params:e.e
 function(){this.$get=function(){return{}}});n.directive("ngView",x);n.directive("ngView",z);x.$inject=["$route","$anchorScroll","$animate"];z.$inject=["$compile","$controller","$route"]})(window,window.angular);
 ;$(document).on("ready", function(){
 	$(".search input").focus().focus();
+})
+.on("click", ".ml-logo", function(event){
+	event.preventDefault();
+	var win = window.open("http://madnesslabs.net");
+    win.focus();
 });
+
 
 $(window).on("resize", function(){
 	if($(document).width() >= 775 && $(".search").is(":hidden")){
@@ -335,8 +341,6 @@ function MadnessPass($scope){
 
 	$scope.open = function(event){
 		event.preventDefault();
-
-		console.log(event.target.href);
 
 		if(event.target.href != document.URL){
 			var win = window.open(event.target.href);
